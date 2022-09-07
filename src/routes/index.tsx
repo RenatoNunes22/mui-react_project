@@ -4,17 +4,24 @@ import { useAppThemeContext, useDrawerContext } from '../shared/contexts'
 
 export const AppRoutes = () => {
   const { toggleDrawerOpen } = useDrawerContext()
+  const { toggleTheme } = useAppThemeContext()
   return (
     <Routes>
       <Route
-        path="/pagina-inicial"
+        path="/page-initial"
         element={
-          <Button variant="contained" color="primary" onClick={toggleDrawerOpen}>
-            Switch Theme
-          </Button>
+          <>
+            <Button variant="contained" color="primary" onClick={toggleDrawerOpen}>
+              NavBar
+            </Button>
+            <br />
+            <Button variant="contained" color="primary" onClick={toggleTheme}>
+              Switch theme
+            </Button>
+          </>
         }
       />
-      <Route path="/*" element={<Navigate to="pagina-inicial" />} />
+      {/* <Route path="/*" element={<Navigate to="page-initial" />} /> */}
     </Routes>
   )
 }

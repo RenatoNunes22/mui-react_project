@@ -1,4 +1,3 @@
-import { TramSharp } from '@mui/icons-material'
 import {
   Avatar,
   Divider,
@@ -12,7 +11,32 @@ import {
   useTheme,
 } from '@mui/material'
 import { Box } from '@mui/system'
+import { useNavigate } from 'react-router-dom'
 import { useDrawerContext } from '../../contexts'
+
+interface IListItemLinkProps {
+  to: string
+  label: string
+  icon: string
+  onClick: (() => void) | undefined
+}
+
+const ListItemLink: React.FC<IListItemLinkProps> = ({ to, label, icon, onClick }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(to)
+    onClick?.()
+  }
+  return (
+    <ListItemButton onClick={handleClick}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  )
+}
 
 interface IMenuLateral {
   children: React.ReactNode
@@ -32,12 +56,12 @@ export const MenuLateral: React.FC<IMenuLateral> = ({ children }) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Pagina Inicial" />
-              </ListItemButton>
+              <ListItemLink
+                to="/page-initial"
+                icon="home"
+                label="Page Initial"
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
             </List>
           </Box>
         </Box>
